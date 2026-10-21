@@ -106,29 +106,41 @@ dialog.addEventListener("click", event => {
 });
 
 // Contact form: prepares an email in the visitor's mail app; it does not send from a server.
+
 document.getElementById("emailLink").href = `mailto:${CONTACT_EMAIL}`;
 document.getElementById("emailLink").textContent = `${CONTACT_EMAIL} ↗`;
+
 document.getElementById("contactForm").addEventListener("submit", event => {
   event.preventDefault();
+
+  const form = event.target;
   const name = document.getElementById("name").value.trim();
   const email = document.getElementById("email").value.trim();
   const subject = document.getElementById("subject").value.trim();
   const message = document.getElementById("message").value.trim();
   const status = document.getElementById("formStatus");
+
   if (!name || !email || !subject || !message) {
     status.textContent = "Please complete every field.";
     return;
   }
+
   if (CONTACT_EMAIL === "yourmail@example.com") {
-    status.textContent = "Before using the form, replace CONTACT_EMAIL in script.js with your real email address.";
+    status.textContent = "Please configure your email address first.";
     return;
   }
+
   const body = `Name: ${name}\nReply email: ${email}\n\n${message}`;
   const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-  status.textContent = "Opening your email app. Review the message and press Send there.";
+
+  // Prepare and open the email
   window.location.href = mailto;
-  event.target.reset();
+
+  // Reset the contact form
+  form.reset();
+  status.textContent = "";
 });
+
 
 
 
