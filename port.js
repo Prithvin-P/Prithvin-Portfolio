@@ -127,6 +127,7 @@ document.getElementById("contactForm").addEventListener("submit", event => {
   const mailto = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   status.textContent = "Opening your email app. Review the message and press Send there.";
   window.location.href = mailto;
+  event.target.reset();
 });
 
 
